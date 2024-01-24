@@ -1,0 +1,42 @@
+# Creating PostgreSQL environment
+
+version: '3'
+
+services:
+  pgServer:
+    container_name: pgServer
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root 
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - pg-volume:/var/lib/postgresql/data
+    networks:
+      - pg-network
+    ports:
+      - "5432:5432"
+
+  client:
+    container_name: pgAdmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=mo7amed7assan1911@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgadmin-volume:/var/lib/pgadmin4
+    networks:
+      - pg-network
+    ports:
+      - "8080:80"
+    depends_on:
+      - pgServer
+
+volumes:
+  pgadmin-volume:
+  pg-volume:
+    external: true  # You need to create a `pg-volume` externally first.
+
+networks:
+  pg-network:
+    external: true  # You need to create a `pg-network` externally first.
