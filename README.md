@@ -11,7 +11,7 @@ docker create volume pg-volume
 ### Run the PostgreSQL environment by:
 
 ```bash
-docker-compose -f postgres_environment.yml up -d
+docker-compose -f postgres_env.yml up -d
 ```
 
 ### Load and save in the database the dataset of ny_taxi
