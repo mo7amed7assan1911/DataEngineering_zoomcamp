@@ -1,5 +1,4 @@
 # Creating PostgreSQL environment
-
 version: '3'
 
 services:
@@ -20,6 +19,9 @@ services:
   client:
     container_name: pgAdmin
     image: dpage/pgadmin4
+    depends_on:
+      - pgServer
+
     environment:
       - PGADMIN_DEFAULT_EMAIL=mo7amed7assan1911@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=admin
@@ -29,14 +31,11 @@ services:
       - pg-network
     ports:
       - "8080:80"
-    depends_on:
-      - pgServer
+    
 
 volumes:
   pgadmin-volume:
   pg-volume:
-    external: true  # You need to create a `pg-volume` externally first.
 
 networks:
   pg-network:
-    external: true  # You need to create a `pg-network` externally first.

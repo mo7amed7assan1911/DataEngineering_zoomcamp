@@ -1,5 +1,6 @@
 pandas
 argparse
 sqlalchemy
+sqlalchemy_utils
 psycopg2
 pyarrow
