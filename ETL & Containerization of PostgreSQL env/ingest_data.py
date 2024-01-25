@@ -84,7 +84,7 @@ if __name__ == '__main__':
     main(args=args)
 
 
-# the host is pg_server if you run the script inside a container that on the pg-network.
+# The host will be pgServer (the PostgreSQL server in our `docker-compose` file) if you run the script inside a container that is on the pg-network.
 
 # trips_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
 # zones_url="https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv"
