@@ -1,7 +1,7 @@
 
 # Ingesting data from the source URL then save it in PostgreSQL database.
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, types
 from sqlalchemy_utils import database_exists, create_database
 from time import time
 import argparse
@@ -40,25 +40,32 @@ def main(args):
     print(f'Connected to posgresql server | database: {db} 🥰')
     
     # Creating 2 tables schemas | no rows
-    df_trips.head(0).to_sql(con=engine, name=trips_table_name, if_exists='replace', index=False)
+    dtype_mapping_trips = {
+        'lpep_pickup_datetime': types.DateTime(),
+        'lpep_dropoff_datetime': types.DateTime(),
+    }
+    df_trips.head(0).to_sql(con=engine, name=trips_table_name, if_exists='replace', dtype=dtype_mapping_trips, index=False)
     df_zones.head(0).to_sql(con=engine, name=zones_table_name, if_exists='replace', index=False)
-
+    
+    print(f'Created 2 schemas {trips_table_name} & {zones_table_name} correctly! 🥰')
+    
     # creating & inseting zones data.
     df_zones.to_sql(con=engine, name=zones_table_name, if_exists='replace', index=False)
-
+    
     # We will not insert all data in one shot as it is has much records.
     # making it iterable to send batches of records.
-    df_iter = pd.read_csv(trips_data_csv_name, iterator=True, chunksize=100000, compression='gzip')
+    df_iter = pd.read_csv(trips_data_csv_name, iterator=True, chunksize=10000, compression='gzip')
     
     for i, batch in enumerate(df_iter):
         
         t_start = time()
-                
+        
         batch.lpep_dropoff_datetime = pd.to_datetime(batch.lpep_dropoff_datetime)
         batch.lpep_pickup_datetime  = pd.to_datetime(batch.lpep_pickup_datetime)
 
         batch.to_sql(con=engine, name=trips_table_name, if_exists='append', index=False)
-
+        
+        print(batch.info())
         t_end = time()
         print(f'Inserted batch {i + 1}, took {(t_end - t_start):.3f} sec 🥰')
         
@@ -89,7 +96,7 @@ if __name__ == '__main__':
 # trips_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
 # zones_url="https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv"
 
-# python ingest_data_homeWork.py \
+# python ingest_data.py \
 #     --user=root \
 #     --password=mypass \
 #     --host=localhost \
