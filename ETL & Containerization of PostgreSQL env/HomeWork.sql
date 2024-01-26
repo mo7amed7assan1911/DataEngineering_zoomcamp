@@ -26,6 +26,7 @@ ORDER BY 2
 LIMIT 3;
 
 
+-- For the passengers picked up in September 2019 in the zone name Astoria which was the drop off zone that had the largest tip? We want the name of the zone, not the id.
 WITH the_condition AS(
     SELECT *
     FROM taxi_trips t JOIN zones z
