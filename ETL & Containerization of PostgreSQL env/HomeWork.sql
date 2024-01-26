@@ -1,5 +1,5 @@
--- Active: 1706226636448@@127.0.0.1@5432@taxi_dataset@public
--- Active: 1706226636448@@127.0.0.1@5432@taxi_dataset@public
+-- Homework URL: https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2024/01-docker-terraform/homework.md
+
 
 -- How many taxi trips were totally made on September 18th 2019?
 SELECT count(*)
