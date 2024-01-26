@@ -10,7 +10,7 @@ docker-compose -f postgres_env.yml up -d
 
 🛠️ To load the dataset and add it to the database, execute the `ingest_data.py` script. Ensure to provide accurate values for the arguments, such as user, password, host, and port based on the running containers.
 
-📝 **NOTICE:** The host will be pgServer (the PostgreSQL server in our `docker-compose` file) if you run the script inside a container that is on the pg-network.
+📝 **NOTICE:** The `host` will be pgServer (the PostgreSQL server in our `docker-compose` file) if you run the script inside a container that is on the pg-network.
 
 🚀 Run the following command:
 
