@@ -1,1 +1,2 @@
 {"operation": "create", "resource": {"type": "pipeline", "uuid": "ingestion"}, "timestamp": 1711301058, "user": null}
+{"operation": "create", "resource": {"type": "pipeline", "uuid": "green_taxi_etl"}, "timestamp": 1711313764, "user": null}
