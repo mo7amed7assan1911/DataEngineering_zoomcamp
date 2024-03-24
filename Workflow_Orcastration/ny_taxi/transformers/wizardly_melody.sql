@@ -1,0 +1,1 @@
+select * from yellow_taxies
